@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en" xmlns:th = "http://www.thymeleaf.org" th:replace="normal/base::Layout(~{::section})">
+<head>
+	<meta charset="UTF-8" />
+	<title> Home </title>
+</head>
+<body>
+	<section>
+		
+		<div class="card me-3 ms-3">
+			<div class="card-body">
+				<h1 class = "text-center">Add Contact</h1>
+				
+				<div class="container-fluid mt-1">
+					<div class="col-md-8 offset-md-2">
+					
+						<form action="#" th:object="${contact}" enctype="multipart/form-data" method="POST"
+								th:action="@{/user/process-contact}" class="mt-2" >
+								
+							<!-- First Name -->
+							<div class="input-group mb-3">
+								  <span class="input-group-text" id="basic-addon1"><i class="fa fa-plus" aria-hidden="true"></i></span>
+								  <input type="text"  id="firstName" required name="name" class="form-control" 
+								  		th:value="${contact.name}" placeholder="Enter Contact primary name here" />								  
+							</div>
+							<!-- Displaying validation errors -->
+						    <span style="color: red;" if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+						    
+							<!-- Second Name -->
+							<div class="input-group mb-3">
+								  <span class="input-group-text" id="basic-addon1"><i class="fa fa-user-circle" aria-hidden="true"></i></span>
+								  <input type="text" required id="secondName" name="secondName" class="form-control" 
+								  		th:value="${contact.secondName}" placeholder="Enter Nickname here" />
+							</div>
+							
+							<!-- Mobile Number -->
+							<div class="input-group mb-3">
+								  <span class="input-group-text" id="basic-addon1"><i class="fa fa-mobile"></i></span>
+								  <input type="number"  id="phone" name="phone"  required class="form-control" 
+								  			th:value="${contact.phone}" placeholder="Enter phonenumber here" />
+								  
+								  <!-- Displaying validation errors -->
+								<div style="color: red;" if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></div>
+								  
+							</div>
+							
+							<!-- Work Phone number -->
+							<div class="input-group mb-3">
+								  <span class="input-group-text" id="basic-addon1"><i class="fa fa-briefcase" ></i></span>
+								  <input type="number"  id="work" name="work" class="form-control" 
+								  		th:value="${contact.work}" placeholder="Enter workplace mobile number here" />
+								  
+								  <!-- Displaying validation errors -->
+								  <span style="color: red;" if="${#fields.hasErrors('work')}" th:errors="*{work}"></span>
+								  
+							</div>
+							
+							<!-- Email -->
+							<div class="input-group mb-3">
+								  <span class="input-group-text" id="basic-addon1"><b>@</b></span>
+								  <input type="email" class="form-control" name="email" th:value="${contact.email}" placeholder="Enter email here" />
+							</div>
+						
+							<!-- contact description -->
+							<div class="input-group mb-3">
+								  <span class="input-group-text" id="basic-addon1"><i class="fa fa-book" aria-hidden="true"></i></span>
+								  <textarea id="mytextarea" class="form-control"  name="description" rows="3" 
+								  		th:value="${contact.description}" placeholder="Enter Contact description"></textarea>
+							</div>
+							
+							<!-- contact image -->
+							<div class="input-group mb-3 custom-file">
+								<!-- <input type="file"  class="form-control" name="image" /> 
+									If we use the above statement to choose file, then it gives an error. 									
+									Because, it maps image with instance variable in contact object image. -->
+								<input type="file"  class="form-control" name="profileImage" />
+							</div>
+							
+							<!-- Form submit button -->
+							<div class="container text-center">
+								<button class="btn btn-outline-primary">Save Contact</button>
+							</div>
+		
+						</form>
+						
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<!-- Tiny cloud form -->
+		<script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+		<script>
+	      tinymce.init({
+	        selector: '#mytextarea'
+	      });
+	    </script>
+	    
+	    <script>
+			$(document).ready(() => {
+				$(".item").removeClass("active");
+				$("#add-link").addClass("active");
+			});
+		</script>
+		
+	</section>
+	
+</body>
+</html>

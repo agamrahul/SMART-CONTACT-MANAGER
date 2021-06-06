@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en" xmlns:th = "http://www.thymeleaf.org" th:replace="base::Layout(~{::section})">
+<head>
+	<meta charset="UTF-8" />
+	<title> Home </title>
+</head>
+<body>
+	<section>
+		<div class="container">
+			<div class="row">
+				<div class = "col-md-6 offset-md-3">
+				 	<div class = "my-card">
+				 	
+				 		<!-- Success alert or error Alert -->
+				 		<div th:if="${session.message}"  th:classappend="${session.message.type}" class="alert" role="alert">
+						  		<p class = "text-center" th:text="${session.message.content}"></p>
+						  		
+						  		<!-- the below line removes the 'message' from session , 
+						  				we are using #, it gives us the HttpSession object  -->
+						  		<th:block th:text = "${#session.removeAttribute('message')}"></th:block>
+						</div>
+				 		
+				 		<!-- registration form image -->
+				 		<div class="container text-center">
+				 			<img class="mx-auto" style = "width: 80px" th:src="@{/img/register.png}" alt="" />
+				 		</div>
+
+				 		<h1 class="text-center pb-3">Register Here</h1>
+				 		
+				 		<!-- Registration form -->
+				 			<!-- th:object is used for mapping between controller and form -->
+				 			<!-- th:value is used to display the value in the input fields of form, if the sent object has any values -->
+				 		<form  th:action = "@{/do_register}" method = "POST" th:object = "${user}" >
+				 			
+				 			<!-- NAME field -->
+				 			<div class="mb-3">
+							    <label for="name_field" class="form-label">Your Name</label>
+							    <input type="text" class="form-control" 
+							    			id="name_field" name="name" th:value="${user.name}"
+							    			placeholder = "Enter your name here" required />
+							    
+							    <!-- display validation error NOT WORKING 
+								<div class="invalid-feedback" th:each="e : ${#fields.errors('name')}" th:text="${e}"> 	
+										th:classappend="${#fields.hasErrors('name') ? 'is-invalid': ''}"
+									</div> -->
+								
+								<!-- Displaying validation errors -->
+								<span style="color: red;" if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+
+							</div>
+							
+				 			<!-- EMAIL field -->
+				 			<div class="mb-3">
+							    <label for="name_field" class="form-label">Your Email</label>
+							    <input type="email" class="form-control" id="email_field"  name="email" th:value="${user.email}"
+							    			placeholder = "Enter your email here" required  />
+							</div>
+				 			<!-- PASSWORD field -->
+				 			<div class="mb-3">
+							    <label for="password_field" class="form-label"> Your Password </label>
+							    <input type="password" class="form-control" id="password_field" name="password"
+							    			placeholder = "Enter your password here" required aria-describedby="emailHelp" />
+							    
+							    <span style="color: red;" if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
+							</div>
+							
+							<!-- ABOUT USER field -->
+							<div class="mb-3">
+								<label for="about" class="form-label">About Yourself</label>
+							    <textarea name="about" class = "form-control" id="about"
+							    		th:text="${user.about}" style="height: 100px">
+							    </textarea>
+							</div>
+							
+							<!-- Terms and conditions checkbox  -->
+							<div class="mb-3 form-check">
+								<input type="checkbox" class = "form-check-input" name="agreement" id="agreement" />
+								<label for="agreement" class = "form-check-label"> Accept terms and conditions </label>
+							</div>
+							
+							<div class="container text-center">
+								<button type = "submit" class="btn bg-primary text-white"> SUBMIT </button>
+								
+								<button type = "reset" class="btn btn-warning text-white"> RESET </button>
+							</div>
+													
+				 		</form>
+				 		
+				 	</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	
+</body>
+</html>
