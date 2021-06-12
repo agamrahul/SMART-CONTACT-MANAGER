@@ -20,7 +20,7 @@ public class EmailService {
 		boolean flag = false;
 		
 		String host = "smtp.gmail.com";
-		String from = "nomadprogrammer02@gmail.com";
+		String from = "xyz@gmail.com"; // From email address
 		
 		// get the system properties 
 		Properties properties = System.getProperties();
@@ -39,7 +39,7 @@ public class EmailService {
 			@Override
 			protected PasswordAuthentication getPasswordAuthentication() {
 				
-				return new PasswordAuthentication("nomadprogrammer02@gmail.com", "Coder@1999");
+				return new PasswordAuthentication("From Email address", "From email password");
 			}			
 		});
 		
